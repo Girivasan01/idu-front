@@ -3,7 +3,7 @@
  * Reads from Netlify environment variable
  */
 const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_SERVER || 'https://mediumaquamarine-rook-503996.hostingersite.com';
+  import.meta.env.VITE_BACKEND_SERVER || 'https://darkcyan-oyster-547711.hostingersite.com';
 
 /**
  * API URL
