@@ -1,0 +1,207 @@
+.repayment-calendar-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.repayment-calendar-wrapper .ant-picker-calendar-full {
+  overflow-x: auto;
+}
+
+.calendar-client-entry {
+  display: block;
+  width: 100%;
+  padding: 6px 4px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-paid {
+  background: #52c41a;
+  color: #fff;
+}
+
+.status-default {
+  background: #ff4d4f;
+  color: #fff;
+}
+
+.status-late {
+  background: #faad14;
+  color: #000;
+}
+
+.status-partial {
+  background: #fa8c16;
+  color: #fff;
+}
+
+.status-not-started {
+  background: #d9d9d9;
+  color: #000;
+}
+
+.calendar-mobile-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.week-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  margin-bottom: 14px;
+}
+
+.nav-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #f2f4f7;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-icon-btn:hover {
+  background: #1677ff;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.week-center {
+  text-align: center;
+  flex: 1;
+}
+
+.today-pill {
+  background: #52c41a;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.today-pill:hover {
+  background: #389e0d;
+}
+
+.week-range {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.weekly-calendar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.week-day {
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.week-date {
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.week-entry {
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 6px;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .repayment-calendar-wrapper {
+    padding: 6px;
+  }
+
+  .ant-picker-calendar {
+    font-size: 12px;
+  }
+
+  .ant-picker-calendar-full {
+    display: block !important;
+  }
+
+  .ant-picker-panel {
+    width: 100% !important;
+  }
+
+  .ant-picker-content {
+    table-layout: fixed;
+  }
+
+  .ant-picker-calendar-date {
+    min-height: 80px !important;
+    padding: 4px !important;
+  }
+
+  .ant-picker-cell-inner {
+    min-height: 90px !important;
+    border-radius: 12px;
+    padding: 6px !important;
+    font-size: 12px;
+  }
+
+  .ant-picker-calendar-date-value {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .calendar-client-entry {
+    font-size: 12px;
+    padding: 6px 4px;
+  }
+
+  .ant-picker-calendar-date-content {
+    min-height: 60px;
+  }
+
+  .ant-picker-cell {
+    padding: 4px !important;
+    cursor: pointer;
+  }
+
+  .ant-picker-calendar-header {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .calendar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}

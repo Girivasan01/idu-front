@@ -1,0 +1,179 @@
+@import './partials/rest.css';
+@import './partials/customAntd.css';
+@import './partials/layout.css';
+@import './partials/core.css';
+@import './partials/auth.css';
+@import './partials/navigation.css';
+@import './partials/header.css';
+@import './partials/sidePanel.css';
+@import './partials/collapseBox.css';
+@import './partials/erp.css';
+@import './partials/repayment.css';
+
+/* ============================================
+   LEGEND CONTAINER RESPONSIVE STYLES
+   ============================================ */
+.legend-container {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 4px;
+}
+
+.legend-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.legend-container::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 2px;
+}
+
+.legend-container::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 2px;
+}
+
+/* ============================================
+   TABLE RESPONSIVE WRAPPER STYLES
+   ============================================ */
+.table-responsive-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.table-responsive-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-responsive-wrapper::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 3px;
+}
+
+.table-responsive-wrapper::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 3px;
+}
+
+/* Ensure tables don't shrink on mobile */
+.ant-table-wrapper {
+  min-width: 100%;
+}
+
+.ant-table-wrapper .ant-table {
+  overflow-x: auto;
+}
+
+/* ============================================
+   LOAN INFO ITEM STYLES
+   ============================================ */
+.loan-info-item {
+  text-align: center;
+}
+
+/* ============================================
+   END LOAN INFO ITEM STYLES
+   ============================================ */
+
+/* ============================================
+   GLOBAL RESPONSIVE STYLES
+   ============================================ */
+
+/* Responsive breakpoints */
+/* Mobile: <768px */
+/* Tablet: 768px–1024px */
+/* Desktop: >1024px */
+
+/* Global responsive container */
+.responsive-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Mobile-first responsive adjustments */
+@media (max-width: 768px) {
+  .responsive-container {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-container {
+    padding: 0 8px;
+  }
+}
+
+/* Responsive spacing */
+.responsive-gutter {
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+.responsive-gutter > * {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* Hide on mobile */
+.hide-mobile {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+/* Hide on desktop */
+.hide-desktop {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .hide-desktop {
+    display: block;
+  }
+}
+
+/* Full width on mobile */
+.full-width-mobile {
+  width: 100%;
+}
+
+/* Responsive text utilities */
+.text-center-mobile {
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .text-center-mobile {
+    text-align: center;
+  }
+}
+
+/* Stack flex items on mobile */
+.stack-mobile {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.stack-mobile > * {
+  width: 100%;
+}
+
+@media (min-width: 769px) {
+  .stack-mobile > * {
+    width: auto;
+  }
+}
+
+/* ============================================
+   END GLOBAL RESPONSIVE STYLES
+   ============================================ */

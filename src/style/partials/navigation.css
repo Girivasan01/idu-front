@@ -1,0 +1,230 @@
+.navigation {
+  position: sticky;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #fff;
+  border-right: 1px solid #edf0f5;
+}
+
+/* Fixed positioning for mobile sidebar overlay */
+@media only screen and (max-width: 768px) {
+  .ant-layout-sider {
+    position: fixed !important;
+    height: 100vh !important;
+    z-index: 1000 !important;
+  }
+  
+  /* Prevent blank sidebar background when collapsed */
+  .ant-layout-sider-collapsed {
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    flex: 0 0 0 !important;
+  }
+  
+  /* Ensure content takes full width when sidebar is closed */
+  .ant-layout {
+    margin-left: 0 !important;
+  }
+  
+  /* ========================================
+     MOBILE HEADER - 3 COLUMN LAYOUT
+     ======================================== */
+  
+  /* Mobile header container */
+  .mobile-header.app-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 12px 16px !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+  
+  /* Left section - Hamburger */
+  .header-left {
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+  }
+  
+  /* Center section - Logo + Title (perfectly centered) */
+  .header-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  /* Logo in header */
+  .app-logo {
+    height: 28px;
+    width: 28px;
+    flex-shrink: 0;
+  }
+  
+  /* Website title in header */
+  .app-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #0f2d52;
+    white-space: nowrap;
+  }
+  
+  /* Right section - Avatar */
+  .header-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+  }
+  
+  /* User profile avatar */
+  .user-profile-avatar {
+    margin-left: auto !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  /* Override Ant Design Layout Header for mobile */
+  .ant-layout-header.mobile-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  
+  /* Mobile title adjustments */
+  .app-title {
+    font-size: 12px;
+  }
+}
+
+/* Tablet adjustments */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .header-center .app-title {
+    font-size: 11px;
+  }
+  
+  .app-logo {
+    height: 24px;
+    width: 24px;
+  }
+}
+
+/* Desktop - larger title */
+@media only screen and (min-width: 1025px) {
+  .header-center .app-title {
+    font-size: 15px;
+  }
+}
+
+.logo {
+  height: 45px;
+  margin: 15px 15px 30px 30px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 160px;
+}
+
+.sidebar-wraper {
+  background: #fff;
+  display: block;
+}
+
+.mobile-sidebar-wraper {
+  display: none;
+}
+
+.mobile-sidebar-wraper .ant-drawer-body {
+  padding: 12px 0px !important;
+}
+
+/* .ant-btn.mobile-sidebar-btn {
+  display: none;
+} */
+
+.tabsNavigation span {
+  background-color: transparent;
+}
+
+.tabsNavigation:hover span {
+  box-shadow: 0px 0px 30px 8px rgba(0, 115, 255, 0.15);
+  background-color: transparent;
+}
+
+/* Tablet breakpoint */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .navigation {
+    width: 80px !important;
+  }
+  
+  .logo {
+    width: 50px;
+    margin: 15px auto 30px;
+    justify-content: center;
+  }
+  
+  .logo > img {
+    margin: 0;
+  }
+  
+  .logo > div {
+    display: none;
+  }
+  
+  .ant-menu-item,
+  .ant-menu-submenu-title {
+    padding: 0 12px !important;
+  }
+  
+  .ant-menu-item .ant-menu-title-content,
+  .ant-menu-submenu-title .ant-menu-title-content {
+    display: none;
+  }
+}
+
+/* Mobile breakpoint */
+@media only screen and (max-width: 768px) {
+  .sidebar-wraper {
+    display: none;
+  }
+
+  .navigation {
+    height: 100%;
+    width: 100% !important;
+  }
+
+  /* Mobile sidebar button - flush to left edge */
+  .mobile-sidebar-btn {
+    margin-left: 0 !important;
+    padding-left: 16px !important;
+    position: absolute;
+    left: 0;
+    top: 12px;
+    z-index: 1001;
+  }
+
+  .mobile-sidebar-wraper {
+    display: block;
+  }
+  
+  /* Make sure the mobile sidebar drawer works properly */
+  .mobile-sidebar-wraper .ant-drawer-content-wrapper {
+    width: 280px !important;
+  }
+  
+  .mobile-sidebar-wraper .ant-drawer-body {
+    padding: 0 !important;
+  }
+}
+

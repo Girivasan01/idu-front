@@ -1,0 +1,38 @@
+.wideAppContainer {
+  max-width: 1150px;
+  width: 100%;
+}
+
+.appContainer {
+  max-width: 1050px;
+  width: 100%;
+}
+
+.smallNavigation {
+  margin-left: 100px;
+}
+
+.wideNavigation {
+  margin-left: 220px;
+}
+
+/* Responsive adjustments for containers */
+@media (max-width: 768px) {
+  .wideAppContainer {
+    max-width: 100%;
+    padding: 0 12px;
+  }
+  
+  .appContainer {
+    max-width: 100%;
+    padding: 0 12px;
+  }
+  
+  .smallNavigation {
+    margin-left: 0;
+  }
+  
+  .wideNavigation {
+    margin-left: 0;
+  }
+}
