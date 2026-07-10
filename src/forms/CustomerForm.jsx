@@ -504,13 +504,16 @@ export default function CustomerForm({ isUpdateForm = false, form, clientId }) {
           </Form.Item>
         </Col>
         <Col span={12}>
-          <Form.Item
-            name="email"
-            label={translate('email')}
-            rules={[{ type: 'email' }, { required: true }, { validator: validateEmptyString }]}
-          >
-            <Input placeholder="Enter email address" />
-          </Form.Item>
+<Form.Item
+  name="email"
+  label={translate('email')}
+  rules={[
+    { type: 'email', message: 'Please enter a valid email address' },
+    { validator: validateEmptyString },
+  ]}
+>
+  <Input placeholder="Enter email address (optional)" />
+</Form.Item>
         </Col>
       </Row>
 
