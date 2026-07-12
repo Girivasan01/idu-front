@@ -54,7 +54,7 @@ function TableFilterDropdown({ filterKey, options, value, onChange, placeholder 
       value={value || undefined}
       placeholder={placeholder}
       onChange={(val) => onChange(filterKey, val)}
-      style={{ minWidth: '150px' }}
+      style={{ width: '160px' }}
       options={options}
     />
   );
@@ -262,39 +262,44 @@ export default function DataTable({ config, extra = [] }) {
         backIcon={<ArrowLeftOutlined />}
         title={DATATABLE_TITLE}
         ghost={false}
-        extra={[
-          <div
-            key="datatable-search-container"
-            style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}
-          >
-            {dropdownFilters.map((filter) => (
-              <TableFilterDropdown
-                key={filter.key}
-                filterKey={filter.key}
-                options={filter.options}
-                value={filters[filter.key]}
-                onChange={handleFilterChange}
-                placeholder={filter.placeholder}
-              />
-            ))}
-
-            <Input
-              key={`searchFilterDataTable`}
-              onChange={filterTable}
-              placeholder={translate('search')}
-              allowClear
-              style={{ minWidth: '150px', maxWidth: '250px' }}
-            />
-
-            <Button onClick={() => fetchList(pagination)} icon={<RedoOutlined />}>
-              {translate('Refresh')}
-            </Button>
-          </div>,
-        ]}
         style={{
           padding: '20px 0px',
         }}
       ></PageHeader>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          flexWrap: 'nowrap',
+          gap: '8px',
+          marginBottom: '16px',
+        }}
+      >
+        {dropdownFilters.map((filter) => (
+          <TableFilterDropdown
+            key={filter.key}
+            filterKey={filter.key}
+            options={filter.options}
+            value={filters[filter.key]}
+            onChange={handleFilterChange}
+            placeholder={filter.placeholder}
+          />
+        ))}
+
+        <Input
+          key={`searchFilterDataTable`}
+          onChange={filterTable}
+          placeholder={translate('search')}
+          allowClear
+          style={{ width: '200px' }}
+        />
+
+        <Button onClick={() => fetchList(pagination)} icon={<RedoOutlined />}>
+          {translate('Refresh')}
+        </Button>
+      </div>
 
       <div className="table-responsive-wrapper">
         <Table
