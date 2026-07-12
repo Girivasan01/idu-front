@@ -1,19 +1,30 @@
 import CrudModule from '@/modules/CrudModule/CrudModule';
 import CustomerForm from '@/forms/CustomerForm';
 import { fields } from './config';
-
 import useLanguage from '@/locale/useLanguage';
 import { HistoryOutlined, EyeOutlined } from '@ant-design/icons';
 
 export default function Customer() {
   const translate = useLanguage();
-
   const entity = 'client';
   const searchConfig = {
     displayLabels: ['name'],
     searchFields: 'name',
   };
   const deleteModalLabels = ['name'];
+
+  const filters = [
+    {
+      key: 'repaymentType',
+      label: translate('repayment_type'),
+      allLabel: 'all_repayment_types',
+      options: [
+        { value: 'Daily', label: translate('daily') },
+        { value: 'Weekly', label: translate('weekly') },
+        { value: 'Monthly EMI', label: translate('monthly_emi') },
+      ],
+    },
+  ];
 
   const Labels = {
     PANEL_TITLE: translate('client'),
@@ -30,6 +41,7 @@ export default function Customer() {
     fields,
     searchConfig,
     deleteModalLabels,
+    filters,
   };
 
   const extra = [
