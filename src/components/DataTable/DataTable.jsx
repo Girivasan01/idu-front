@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import {
   EyeOutlined,
@@ -10,7 +10,7 @@ import {
   ArrowLeftOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { Dropdown, Table, Button, Input } from 'antd';
+import { Dropdown, Table, Button, Input, Select } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -40,6 +40,26 @@ function AddNewItem({ config }) {
     </Button>
   );
 }
+
+/**
+ * Reusable select-based filter dropdown.
+ * Pass `filterKey` (the field name sent to the API) and `options`
+ * (array of { label, value }) to reuse this for any field, not just
+ * repaymentType.
+ */
+function TableFilterDropdown({ filterKey, options, value, onChange, placeholder }) {
+  return (
+    <Select
+      allowClear
+      value={value || undefined}
+      placeholder={placeholder}
+      onChange={(val) => onChange(filterKey, val)}
+      style={{ minWidth: '150px' }}
+      options={options}
+    />
+  );
+}
+
 export default function DataTable({ config, extra = [] }) {
   let { entity, dataTableColumns, DATATABLE_TITLE, fields, searchConfig } = config;
   const { crudContextAction } = useCrudContext();
@@ -48,6 +68,11 @@ export default function DataTable({ config, extra = [] }) {
   const { moneyFormatter } = useMoney();
   const { dateFormat } = useDate();
   const navigate = useNavigate();
+
+  // Generic filters state — keyed by field name so this pattern can be
+  // reused for any additional dropdown filters later on.
+  const [filters, setFilters] = useState({});
+  const [searchValue, setSearchValue] = useState('');
 
   const items = [
     {
@@ -158,19 +183,47 @@ export default function DataTable({ config, extra = [] }) {
 
   const dispatch = useDispatch();
 
-  const handelDataTableLoad = useCallback((pagination, filters, sorter, extraInfo) => {
-    if (extraInfo?.action && extraInfo.action !== 'paginate') {
-      return;
-    }
+  const fetchList = useCallback(
+    (pageOptions = {}, nextFilters = filters, q = searchValue) => {
+      const options = {
+        page: pageOptions?.current || 1,
+        items: pageOptions?.pageSize || 10,
+        q: q || undefined,
+        fields: q ? searchConfig?.searchFields || '' : undefined,
+        ...nextFilters,
+      };
+      dispatch(crud.list({ entity, options }));
+    },
+    [dispatch, entity, filters, searchValue, searchConfig]
+  );
 
-    const options = { page: pagination?.current || 1, items: pagination?.pageSize || 10 };
-    dispatch(crud.list({ entity, options }));
-  }, [dispatch, entity]);
+  const handelDataTableLoad = useCallback(
+    (paginationArg, tableFilters, sorter, extraInfo) => {
+      if (extraInfo?.action && extraInfo.action !== 'paginate') {
+        return;
+      }
+      fetchList(paginationArg);
+    },
+    [fetchList]
+  );
 
   const filterTable = (e) => {
     const value = e.target.value;
-    const options = { q: value, fields: searchConfig?.searchFields || '' };
-    dispatch(crud.list({ entity, options }));
+    setSearchValue(value);
+    fetchList({ current: 1, pageSize: pagination?.pageSize }, filters, value);
+  };
+
+  // Generic handler: works for repaymentType today, and any future
+  // dropdown filter you add to `dropdownFilters` below.
+  const handleFilterChange = (filterKey, value) => {
+    const nextFilters = { ...filters };
+    if (value === undefined || value === null || value === '') {
+      delete nextFilters[filterKey];
+    } else {
+      nextFilters[filterKey] = value;
+    }
+    setFilters(nextFilters);
+    fetchList({ current: 1, pageSize: pagination?.pageSize }, nextFilters, searchValue);
   };
 
   const dispatcher = () => {
@@ -185,6 +238,20 @@ export default function DataTable({ config, extra = [] }) {
     };
   }, []);
 
+  // Declare dropdown filters here — add more entries to reuse this
+  // same pattern for other fields without touching the render logic.
+  const dropdownFilters = [
+    {
+      key: 'repaymentType',
+      placeholder: translate('Repayment Type'),
+      options: [
+        { label: translate('Daily'), value: 'Daily' },
+        { label: translate('Weekly'), value: 'Weekly' },
+        { label: translate('Monthly'), value: 'Monthly' },
+      ],
+    },
+  ];
+
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
@@ -196,7 +263,21 @@ export default function DataTable({ config, extra = [] }) {
         title={DATATABLE_TITLE}
         ghost={false}
         extra={[
-          <div key="datatable-search-container" style={{ display: 'flex', gap: '8px' }}>
+          <div
+            key="datatable-search-container"
+            style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}
+          >
+            {dropdownFilters.map((filter) => (
+              <TableFilterDropdown
+                key={filter.key}
+                filterKey={filter.key}
+                options={filter.options}
+                value={filters[filter.key]}
+                onChange={handleFilterChange}
+                placeholder={filter.placeholder}
+              />
+            ))}
+
             <Input
               key={`searchFilterDataTable`}
               onChange={filterTable}
@@ -205,7 +286,7 @@ export default function DataTable({ config, extra = [] }) {
               style={{ minWidth: '150px', maxWidth: '250px' }}
             />
 
-            <Button onClick={handelDataTableLoad} icon={<RedoOutlined />}>
+            <Button onClick={() => fetchList(pagination)} icon={<RedoOutlined />}>
               {translate('Refresh')}
             </Button>
           </div>,
