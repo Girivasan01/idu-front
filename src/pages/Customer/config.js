@@ -57,46 +57,61 @@ const renderMapLink = (linkText) => (value, record) => {
 };
 
 export const fields = {
-  // ✅ FIX: pass both `photo` AND `name` so CustomerAvatar can show initials as fallback
+  // Pass both `photo` AND `name` so CustomerAvatar can show initials as fallback
   // The render receives (value, record) — value here is record.photo (the filename string)
   photo: {
     label: 'Photo',
     render: (value, record) =>
       createElement(CustomerAvatar, {
-        photo: value || record?.photo,  // ✅ FIX: use `value` directly (it IS the photo field)
+        photo: value || record?.photo,
         name: record?.name,
         size: 36,
       }),
   },
+
   name: {
     type: 'string',
   },
+
+  loanId: {
+    label: 'Loan ID',
+    type: 'string',
+  },
+
   address: {
     type: 'string',
   },
+
   map_link: {
     label: 'Location',
     render: renderMapLink('View'),
     readRender: renderMapLink('Open in Google Maps'),
   },
+
   phone: {
     type: 'phone',
   },
+
   email: {
     type: 'email',
   },
+
   loanAmount: {
     type: 'currency',
   },
+
   interestRate: {
     type: 'number',
   },
+
   term: {
     type: 'string',
   },
+
   startDate: {
     type: 'date',
   },
+
   collectionTime: {
     label: 'Collection',
     render: (time) => {
@@ -105,6 +120,7 @@ export const fields = {
     },
     sorter: (a, b) => (a?.collectionTime || '').localeCompare(b?.collectionTime || ''),
   },
+
   endDate: {
     label: 'Ending Date',
     render: (_, record) => {
@@ -121,6 +137,7 @@ export const fields = {
       return aValue - bValue;
     },
   },
+
   repaymentType: {
     type: 'select',
     options: [
@@ -129,6 +146,7 @@ export const fields = {
       { value: 'Daily', label: 'Daily' },
     ],
   },
+
   status: {
     type: 'select',
     options: [
@@ -137,12 +155,15 @@ export const fields = {
       { value: 'defaulted', label: 'Defaulted', color: 'red' },
     ],
   },
+
   assigned: {
     type: 'related',
     relation: 'Admin',
     label: 'Assigned Staff',
+
     render: (text, record) => {
       const assigned = record?.assigned || record?.assignedTo || null;
+
       if (!assigned) {
         return 'Unknown Staff';
       }
@@ -157,6 +178,7 @@ export const fields = {
         }
 
         const nested = assigned?.assigned || assigned?.user || assigned?.staff;
+
         if (nested && typeof nested === 'object') {
           return nested.name || nested.email || nested._id || 'Unknown Staff';
         }
